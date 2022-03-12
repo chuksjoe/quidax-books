@@ -6,7 +6,8 @@ module.exports = {
         star: '#EBA430'
       },
       height: {
-        book: 'calc(100% - 120px)'
+        book: 'calc(100% - 120px)',
+        300: '300px'
       },
       width: {
         cart: '500px'

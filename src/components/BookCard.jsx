@@ -5,28 +5,9 @@ import Like from '../assets/svgs/like.svg';
 import Purchase from '../assets/svgs/purchase.svg';
 import Cart from '../assets/svgs/cart.svg';
 import StarRatings from './StarRatings';
-import { cartItemsVar } from '../caches/cart';
+import { addToCart } from '../utils/cartOps';
 
 function BookCard({ data }) {
-
-  const addToCart = () => {
-    let list = cartItemsVar();
-    const exists = list?.filter((item) => item?.id === data?.id);
-    const newItem = {
-      id: data?.id,
-      title: data?.title,
-      image: data?.image_url,
-      authors: data?.authors,
-      price: data?.price,
-      count: ((exists?.[0]?.count || 0) + 1)
-    };
-    if (exists?.[0]) {
-      list = list?.map((item) => (item?.id === data?.id ? newItem : item))
-    } else {
-      list = [newItem, ...list];
-    }
-    cartItemsVar(list);
-  };
 
   return (
     <div className="w-full h-full flex relative bg-white hover:shadow-product">
@@ -74,7 +55,7 @@ function BookCard({ data }) {
           </span>
         </p>
         <button
-          onClick={addToCart}
+          onClick={() => addToCart(data)}
           className="flex items-center font-semibold"
           type="button"
         >

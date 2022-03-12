@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Cart from "./components/Cart";
 
 import Header from "./components/Header";
+import SearchResult from "./components/SearchResult";
 import Book from "./pages/Book";
 import Home from "./pages/Home";
 
@@ -16,6 +17,7 @@ function App() {
         </Routes>  
       </div>
       <Cart />
+      <SearchResult />
     </div>
   );
 }

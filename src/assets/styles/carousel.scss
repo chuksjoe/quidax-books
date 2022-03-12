@@ -1,0 +1,17 @@
+
+.carousel__slide-item-img-link {
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  
+  img {
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.5s ease;
+    width: 100%;
+  }
+}

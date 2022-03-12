@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const GET_BOOKS = gql`
+export const GET_BOOKS = (limit = 30) => gql`
   query getBooks {
-    books (limit: 30, start: 1) {
+    books (limit: ${limit}, start: 1) {
       id
       title
       publisher
@@ -16,6 +16,7 @@ export const GET_BOOKS = gql`
       featured
       image_url
       published_at
+      new_count @client
       tags {
         name
       }
@@ -47,6 +48,7 @@ export const GET_BOOK = (id) => gql`
       featured
       image_url
       published_at
+      new_count @client
       tags {
         name
       }

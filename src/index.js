@@ -4,10 +4,11 @@ import { BrowserRouter } from "react-router-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 import './index.css';
+import './assets/styles/general.scss';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { cartItemsVar } from './caches/cart';
-
+import { cartItemsVar, searchTextVar, showCartVar } from './caches/general';
 
 const client = new ApolloClient({
   uri: 'https://quidax-feec-graphql.herokuapp.com/graphql',
@@ -17,9 +18,10 @@ const client = new ApolloClient({
         fields: { // Field policy map for the Product type
           new_count: { // Field policy for the new_count field
             read(_, { variables }) { // The read function for the new_count field
-              return localStorage.getItem('CART').includes(
-                variables.productId
-              );
+              console.log(variables);
+              const cart = cartItemsVar();
+              const exists = cart.filter((item) => item?.id === variables?.id);
+              return variables?.available_copies - exists?.[0]?.count || 0;
             }
           }
         }
@@ -28,9 +30,10 @@ const client = new ApolloClient({
         fields: { // Field policy map for the Product type
           new_count: { // Field policy for the new_count field
             read(_, { variables }) { // The read function for the new_count field
-              return localStorage.getItem('CART').includes(
-                variables.productId
-              );
+              console.log(variables);
+              const cart = cartItemsVar();
+              const exists = cart.filter((item) => item?.id === variables?.id);
+              return variables?.available_copies - 2 || exists?.[0]?.count || 0;
             }
           }
         }
@@ -40,6 +43,16 @@ const client = new ApolloClient({
           cartItems: {
             read() {
               return cartItemsVar();
+            }
+          },
+          showCart: {
+            read() {
+              return showCartVar();
+            }
+          },
+          searchText: {
+            read() {
+              return searchTextVar();
             }
           }
         }
