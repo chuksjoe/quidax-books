@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useReactiveVar } from "@apollo/client";
 
 import { searchTextVar } from "../caches/general";
@@ -6,8 +6,10 @@ import { searchTextVar } from "../caches/general";
 import Search from '../assets/svgs/search.svg';
 import Close from '../assets/svgs/close.svg';
 import Arrow from '../assets/svgs/arrow-back.svg';
+import { useLocation } from "react-router-dom";
 
 function SearchInputSmall({ className }) {
+  const location = useLocation();
   const searchText = useReactiveVar(searchTextVar);
   const [showTextbox, setShowTextbox] = useState(false);
 
@@ -15,6 +17,10 @@ function SearchInputSmall({ className }) {
     setShowTextbox(false);
     searchTextVar('');
   };
+
+  useEffect(() => {
+    setShowTextbox(false);
+  }, [location]);
 
   return (
     <>
@@ -27,10 +33,10 @@ function SearchInputSmall({ className }) {
 
       <div
         className={`search-overlay ${
-          showTextbox ? 'show' : ''} fixed z-30 top-0 left-0 w-full h-full ${
-          searchText ? '' : 'bg-gray-500'} bg-opacity-50`}
+          showTextbox ? 'show' : ''} fixed z-30 top-0 left-0 w-full ${
+          searchText ? 'h-auto' : 'h-full'} bg-opacity-50 bg-gray-500`}
       >
-        <div className="w-full flex items-center bg-white px-8 py-5">
+        <div className="w-full flex items-center bg-white px-8 py-6">
           <button
             className={`${className} mr-5`}
             onClick={handleClose}
@@ -41,7 +47,8 @@ function SearchInputSmall({ className }) {
           <div className="w-full relative">
             <input
               value={searchText}
-              onChange={(e) => searchTextVar(e?.target?.value?.trim())}
+              placeholder="Books, genres, authors, etc."
+              onChange={(e) => searchTextVar(e?.target?.value?.trimStart())}
               className="w-full outline-none border py-2 pl-4 pr-10 border-gray-200"
             />
             {searchText ? (

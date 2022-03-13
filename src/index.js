@@ -13,27 +13,14 @@ import { cartItemsVar, searchTextVar, showCartVar } from './caches/general';
 const client = new ApolloClient({
   uri: 'https://quidax-feec-graphql.herokuapp.com/graphql',
   cache: new InMemoryCache({
-    typePolicies: { // Type policy map
-      books: {
-        fields: { // Field policy map for the Product type
-          new_count: { // Field policy for the new_count field
-            read(_, { variables }) { // The read function for the new_count field
-              console.log(variables);
+    typePolicies: {
+      Books: {
+        fields: {
+          newCount: {
+            read(_, { readField }) {
               const cart = cartItemsVar();
-              const exists = cart.filter((item) => item?.id === variables?.id);
-              return variables?.available_copies - exists?.[0]?.count || 0;
-            }
-          }
-        }
-      },
-      book: {
-        fields: { // Field policy map for the Product type
-          new_count: { // Field policy for the new_count field
-            read(_, { variables }) { // The read function for the new_count field
-              console.log(variables);
-              const cart = cartItemsVar();
-              const exists = cart.filter((item) => item?.id === variables?.id);
-              return variables?.available_copies - 2 || exists?.[0]?.count || 0;
+              const exists = cart.filter((item) => item?.id === readField('id'));
+              return readField('available_copies') - (exists?.[0]?.count || 0);
             }
           }
         }

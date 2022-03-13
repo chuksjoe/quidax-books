@@ -1,8 +1,14 @@
 import { gql } from '@apollo/client';
 
-export const GET_BOOKS = (limit = 30) => gql`
+export const GET_BOOKS = ({ searchText = '' } = {}) => gql`
   query getBooks {
-    books (limit: ${limit}, start: 1) {
+    books (where: {
+      _or: [
+        { title_contains: "${searchText}" },
+        {authors: { name_contains: "${searchText}" }},
+        {genres: { name_contains: "${searchText}" }},
+        {tags: { name_contains: "${searchText}" }}
+      ]}) {
       id
       title
       publisher
@@ -16,7 +22,32 @@ export const GET_BOOKS = (limit = 30) => gql`
       featured
       image_url
       published_at
-      new_count @client
+      newCount @client
+      tags {
+        name
+      }
+      genres {
+        name
+      }
+      authors {
+        name
+      }
+    }
+  }
+`;
+
+export const GET_FEATURED_BOOKS = ({ limit = 30, start = 1 } = {}) => gql`
+  query getBooks {
+    books (limit: ${limit}, start: ${start}, where: { featured: true }) {
+      id
+      title
+      number_of_purchases
+      likes
+      rating
+      available_copies
+      image_url
+      published_at
+      newCount @client
       tags {
         name
       }
@@ -48,7 +79,7 @@ export const GET_BOOK = (id) => gql`
       featured
       image_url
       published_at
-      new_count @client
+      newCount @client
       tags {
         name
       }

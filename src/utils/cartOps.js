@@ -11,6 +11,7 @@ export const addToCart = (data) => {
     image: data?.image_url,
     authors: data?.authors,
     price: data?.price,
+    available: data?.available_copies,
     count: ((exists?.[0]?.count || 0) + 1)
   };
   if (exists?.[0]) {

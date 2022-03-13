@@ -36,7 +36,7 @@ function CartItem({ data, removeItem, updateCount }) {
             <li className="px-3 py-1 border border-r-0">{data?.count}</li>
             <li
               role="presentation"
-              onClick={() => updateCount(data?.id, data?.count + 1)}
+              onClick={() => data?.available > data?.count && updateCount(data?.id, data?.count + 1)}
               className="px-3 py-1 border bg-gray-100 hover:bg-gray-200 cursor-pointer">+</li>
           </ul>
           <p className="font-bold text-sm mt-4">

@@ -13,7 +13,8 @@ function SearchInput({ className }) {
       <div className="w-full relative">
         <input
           value={searchText}
-          onChange={(e) => searchTextVar(e?.target?.value?.trim())}
+          placeholder="Search books, genres, authors, etc."
+          onChange={(e) => searchTextVar(e?.target?.value?.trimStart())}
           className="w-full outline-none border py-2 pl-4 pr-10 border-gray-200"
         />
         {searchText ? (

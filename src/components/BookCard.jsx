@@ -8,7 +8,6 @@ import StarRatings from './StarRatings';
 import { addToCart } from '../utils/cartOps';
 
 function BookCard({ data }) {
-
   return (
     <div className="w-full h-full flex relative bg-white hover:shadow-product">
       <Link to={`/book/${data?.id}`}>
@@ -50,8 +49,8 @@ function BookCard({ data }) {
         </div>
         <p className="mb-2">
           {formatCurrency(data?.price, data?.currency)}
-          <span className={`ml-5 ${data?.available_copies ? 'text-green-400' : 'text-red-400'}`}>
-            {data?.available_copies ? `${data?.available_copies} Copies Available` : 'Out of stock'}
+          <span className={`ml-5 ${data?.newCount ? 'text-green-400' : 'text-red-400'}`}>
+            {data?.newCount ? `${data?.newCount} Copies Available` : 'Out of stock'}
           </span>
         </p>
         <button

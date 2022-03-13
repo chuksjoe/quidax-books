@@ -6,13 +6,13 @@ import "../assets/styles/carousel.scss";
 import ArrowPrev from "../assets/svgs/arrow-prev.svg";
 import ArrowNext from "../assets/svgs/arrow-next.svg";
 
-import { GET_BOOKS } from "../queries/queries";
+import { GET_FEATURED_BOOKS } from "../queries/queries";
 
 import CarouselSlideItem from "./CarouselSlideItem";
 
 const Carousel = () => {
   const slideWidth = 230;
-  const { loading, error, data } = useQuery(GET_BOOKS(10));
+  const { loading, error, data } = useQuery(GET_FEATURED_BOOKS({ limit: 10 }));
 
   const [items, setItems] = useState([]);
   const [isTicking, setIsTicking] = useState(false);

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -10,13 +11,17 @@ import Like from '../assets/svgs/like.svg';
 import Purchase from '../assets/svgs/purchase.svg';
 import StarRatings from './StarRatings';
 import { addToCart } from "../utils/cartOps";
+import { searchTextVar } from "../caches/general";
 
 function BookDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { loading, error, data } = useQuery(GET_BOOK(id));
 
-  console.log(data?.book)
+  useEffect(() => {
+    searchTextVar('');
+  }, [id]);
+
   return (
     <section className="w-full relative">
       <div className="max-w-7xl mx-auto px-8">
@@ -33,8 +38,8 @@ function BookDetails() {
 
                 <img src={data?.book?.image_url} alt="Back Button" className="w-full h-auto" />
 
-                <p className={`mt-10 text-sm mb-2 ${data?.book?.available_copies ? 'text-green-400' : 'text-red-400'}`}>
-                  {data?.book?.available_copies ? `${data?.book?.available_copies} Copies Available` : 'Out of stock'}
+                <p className={`mt-10 text-sm mb-2 ${data?.book?.newCount ? 'text-green-400' : 'text-red-400'}`}>
+                  {data?.book?.newCount ? `${data?.book?.newCount} Copies Available` : 'Out of stock'}
                 </p>
 
                 <p className="text-4xl font-thin">
@@ -128,8 +133,8 @@ function BookDetails() {
                 <img src={Cart} className="mr-5" alt="" width="25" />
                 <div className="">
                   <p className="font-semibold">Add to Cart</p>
-                  <p className={`text-xs ${data?.book?.available_copies ? 'text-green-400' : 'text-red-400'}`}>
-                    {data?.book?.available_copies ? `${data?.book?.available_copies} Copies Available` : 'Out of stock'}
+                  <p className={`text-xs ${data?.book?.newCount ? 'text-green-400' : 'text-red-400'}`}>
+                    {data?.book?.newCount ? `${data?.book?.newCount} Copies Available` : 'Out of stock'}
                   </p>
                 </div>
                 <p className="text-4xl font-thin">

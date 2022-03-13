@@ -5,7 +5,6 @@ import BookCard from "./BookCard";
 function Books() {
   const { loading, error, data } = useQuery(GET_BOOKS());
 
-  console.log(data?.books?.[0])
   return (
     <section className="w-full relative">
       <div className="max-w-7xl mx-auto px-8">
