@@ -45,14 +45,16 @@ function BookDetails() {
                 <p className="text-4xl font-thin">
                   {formatCurrency(data?.book?.price, data?.book?.currency)}
                 </p>
-                <button
-                  onClick={() => addToCart(data?.book)}
-                  className="fixed bottom-2 flex items-center justify-center font-semibold text-lg bg-black text-white w-60 py-5 px-2"
-                  type="button"
-                >
-                  <img src={Cart} className="mr-5" alt="" width="15" />
-                  Add to Cart
-                </button>
+                {data?.book?.newCount > 0 && (
+                  <button
+                    onClick={() => addToCart(data?.book)}
+                    className="fixed bottom-2 flex items-center justify-center font-semibold text-lg bg-black text-white w-60 py-5 px-2"
+                    type="button"
+                  >
+                    <img src={Cart} className="mr-5" alt="" width="15" />
+                    Add to Cart
+                  </button>
+                )}
               </div>
             </div>
             <div className="w-full md:pl-60 pt-11 pb-28 text-sm">
@@ -124,23 +126,25 @@ function BookDetails() {
                 <p className="whitespace-pre-line">{data?.book?.full_description}</p>
               </div>
 
-              <div
-                onClick={() => addToCart(data?.book)}
-                style={{ width: 'calc(100% - 4rem)' }}
-                className="fixed md:hidden bottom-4 flex items-center justify-around bg-black text-white py-5 px-5 cursor-pointer"
-                role="presentation"
-              >
-                <img src={Cart} className="mr-5" alt="" width="25" />
-                <div className="">
-                  <p className="font-semibold">Add to Cart</p>
-                  <p className={`text-xs ${data?.book?.newCount ? 'text-green-400' : 'text-red-400'}`}>
-                    {data?.book?.newCount ? `${data?.book?.newCount} Copies Available` : 'Out of stock'}
+              {data?.book?.newCount > 0 && (
+                <div
+                  onClick={() => addToCart(data?.book)}
+                  style={{ width: 'calc(100% - 4rem)' }}
+                  className="fixed md:hidden bottom-4 flex items-center justify-around bg-black text-white py-5 px-5 cursor-pointer"
+                  role="presentation"
+                >
+                  <img src={Cart} className="mr-5" alt="" width="25" />
+                  <div className="">
+                    <p className="font-semibold">Add to Cart</p>
+                    <p className={`text-xs ${data?.book?.newCount ? 'text-green-400' : 'text-red-400'}`}>
+                      {data?.book?.newCount ? `${data?.book?.newCount} Copies Available` : 'Out of stock'}
+                    </p>
+                  </div>
+                  <p className="text-4xl font-thin">
+                    {formatCurrency(data?.book?.price, data?.book?.currency)}
                   </p>
                 </div>
-                <p className="text-4xl font-thin">
-                  {formatCurrency(data?.book?.price, data?.book?.currency)}
-                </p>
-              </div>
+              )}
             </div>
           </div>
         )}

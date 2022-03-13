@@ -53,14 +53,16 @@ function BookCard({ data }) {
             {data?.newCount ? `${data?.newCount} Copies Available` : 'Out of stock'}
           </span>
         </p>
-        <button
-          onClick={() => addToCart(data)}
-          className="flex items-center font-semibold"
-          type="button"
-        >
-          <img src={Cart} className="mr-3" alt="" width="15" />
-          Add to Cart
-        </button>
+        {data?.newCount > 0 && (
+          <button
+            onClick={() => addToCart(data)}
+            className="flex items-center font-semibold"
+            type="button"
+          >
+            <img src={Cart} className="mr-3" alt="" width="15" />
+            Add to Cart
+          </button>
+        )}
       </div>
     </div>
   )
