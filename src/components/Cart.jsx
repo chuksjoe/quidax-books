@@ -33,7 +33,11 @@ function Cart() {
   };
 
   return (
-    <div className={`cart ${showCart ? 'show' : ''} fixed z-40 top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50`}>
+    <div
+      role="presentation"
+      onClick={(e) => (e?.target?.classList?.contains('cart') && showCartVar(false))}
+      className={`cart ${showCart ? 'show' : ''} fixed z-40 top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50`}
+    >
       <div className="bg-white w-full sm:w-cart absolute right-0 top-0 h-full">
         <div className="w-full">
           <div className=" flex justify-between px-10 py-9 border-b border-gray-200">

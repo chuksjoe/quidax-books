@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 
 import "../assets/styles/carousel.scss";
@@ -19,7 +19,6 @@ const Carousel = () => {
   const [activeIdx, setActiveIdx] = useState(0);
   const [books, setBooks] = useState([]);
   const [length, setLength] = useState(0);
-  
   
   useEffect(() => {
     setLength(data?.books?.length);
@@ -48,14 +47,22 @@ const Carousel = () => {
     }
   };
 
-  const nextClick = (jump = 1) => {
+  const nextClick = useCallback((jump = 1) => {
     if (!isTicking) {
       setIsTicking(true);
       setItems((prev) => {
         return prev.map((_, i) => prev[(i - jump + (length * 2)) % (length * 2)]);
       });
     }
-  };
+  }, [isTicking, length]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextClick();
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [nextClick]);
 
   const handleDotClick = (idx) => {
     if (idx < activeIdx) prevClick(activeIdx - idx);

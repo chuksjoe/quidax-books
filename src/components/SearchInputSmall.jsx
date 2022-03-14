@@ -32,6 +32,8 @@ function SearchInputSmall({ className }) {
       </button>
 
       <div
+        role="presentation"
+        onClick={(e) => (e?.target?.classList?.contains('search-overlay') && setShowTextbox(false))}
         className={`search-overlay ${
           showTextbox ? 'show' : ''} fixed z-30 top-0 left-0 w-full ${
           searchText ? 'h-auto' : 'h-full'} bg-opacity-50 bg-gray-500`}
