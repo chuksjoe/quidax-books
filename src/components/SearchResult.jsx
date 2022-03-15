@@ -35,7 +35,7 @@ function SearchResult() {
           </div>
           <div className="flex flex-wrap -mx-3 mt-3">
             {loading && <p>Loading...</p>}
-            {error && <p>{error}</p>}
+            {error && <p>{error.toString()}</p>}
             {data?.books?.map((item) => (
               <div className="w-full px-3 py-3 mb-5 sm:w-1/2 lg:w-1/3" key={item?.id}>
                 <BookCard data={item} />

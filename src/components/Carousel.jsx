@@ -13,6 +13,7 @@ import CarouselSlideItem from "./CarouselSlideItem";
 const Carousel = () => {
   const slideWidth = 230;
   const { loading, error, data } = useQuery(GET_FEATURED_BOOKS({ limit: 10 }));
+  console.log(error);
 
   const [items, setItems] = useState([]);
   const [isTicking, setIsTicking] = useState(false);
@@ -80,7 +81,7 @@ const Carousel = () => {
         </button>
         <div className="w-full h-full relative overflow-hidden">
           {loading && <center>Loading...</center>}
-          {error && <center>{error}</center>}
+          {error && <center>{error.toString()}</center>}
           <ul
             style={{ width: `${(length + 0.5) * slideWidth * 2}px` }}
             className="h-full m-0 p-0 left-1/2 absolute -translate-x-1/2"

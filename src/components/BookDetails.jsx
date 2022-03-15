@@ -26,7 +26,7 @@ function BookDetails() {
     <section className="w-full relative">
       <div className="max-w-7xl mx-auto px-8">
         {loading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
+        {error && <p>{error.toString()}</p>}
         {data?.book && (
           <div className="w-full relative">
             <div className="fixed hidden md:block w-60 h-book">
